@@ -1,9 +1,12 @@
-	class CreateMovies < ActiveRecord::Migration
+class CreateMovies < ActiveRecord::Migration
   def change
     create_table :movies do |t|
       t.string :title
-      t.string :description
-      t.integer :year_released
+      t.integer :release_year
+      t.float :price
+      t.text :description
+      t.string :imdb_id
+      t.string :poster_url
 
       t.timestamps
     end

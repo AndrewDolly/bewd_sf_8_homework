@@ -1,26 +1,93 @@
+
+<!DOCTYPE HTML>
+<html class="no-js" lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/application.css">
+    <link rel="stylesheet" href="stylesheets/normalize.css">
+    <link rel="stylesheet" href="stylesheets/foundation.css">
+    <link rel="stylesheet" href="stylesheets/foundation-icons/foundation-icons.css">
+        <link rel="stylesheet" href="css/gallery.css">
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="js/foundation.min.js"></script>
+   
+    <link href='http://fonts.googleapis.com/css?family=Days+One|Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>  
+
+<script type="text/javascript">
+</script>
+</head>
+
+
+<body>
+
+
+ 
+<h4 class="column">Featured Movies</h4>
+<div class="column">
+  <ul class="movies-grid no-bullet row">
+    <% @movies.each do |movie| %>
+      <li class="large-3 medium-4 small-12 column">
+        <div class="movie-card padly">
+          <%= link_to movie, class: "poster" do %>
+            <%= image_tag movie.poster %>
+          <% end %>
+          <div class="movie-info ell glassy-bg padmy padlx">
+            <div class="title">
+              <h6><%= movie.title %> <span>(<%= movie.release_year %>)</span></h6>
+            </div>
+            <p class="left price label movie-label radius">$ <%= movie.price %></p>
+            <%= link_to movie.imdb, class: "right" do %>
+              <%= image_tag asset_path("imdb_logo.png") %>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+
+
+
+
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr> <p>© MovieStore 2014</p>
+    </div>
+  </footer>
+ 
+  <%= javascript_include_tag "application" %>
+ 
+</body>
+
+
+
+
+
+
 <h1>Welcome to the moview app!</h1>
 <p>Browse the collection below:</p>
- 
- <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Release</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
 
-    <tbody>
-	  <% @movies.each do |movie| %>
-  		<tr>
-  			<td><%= movie.title %></td>
-  			<td><%= movie.description %></td>
-  			<td><%= movie.year_released %></td>	
-   		</tr>
-    <% end %>
-  </tbody>
-</table>
+
+<%= form_tag movies_path, method: 'GET' do %>
+<%= text_field_tag :q, params[:q] %>
+<%= submit_tag 'Search' %> 
+<% end %>
+
+<% @movies.each do |movie| %>
+<p><%= movie.title %></p>
+<% end %>
 
 
 
+<script>
+  $(document).foundation();
+</script>
+<script src="/js/vendor/fastclick.js"></script>
+  </body>
+</html>
